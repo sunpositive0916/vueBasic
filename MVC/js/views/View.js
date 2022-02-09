@@ -12,6 +12,7 @@ export default {
     return this
   },
 
+  // 뷰 -> 컨트롤러 -> 뷰 할 때 필요
   emit(event, data) {
     const evt = new CustomEvent(event, { detail: data })
     this.el.dispatchEvent(evt)
