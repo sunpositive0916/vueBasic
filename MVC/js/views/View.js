@@ -13,6 +13,7 @@ export default {
   },
 
   // 뷰 -> 컨트롤러 -> 뷰 할 때 필요
+  // 메인 컨트롤러에게 위임
   emit(event, data) {
     const evt = new CustomEvent(event, { detail: data })
     this.el.dispatchEvent(evt)
