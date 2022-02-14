@@ -1,6 +1,6 @@
 import View from './View.js'
 
-const tag = '[FormView]'
+const tag = '[KeywordView]'
 
 const KeywordView = Object.create(View)
 
@@ -14,9 +14,10 @@ KeywordView.setup = function (el) {
 }
 
 KeywordView.render = function(data = []){
-    this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : NO_KEYWORD
-    this.bindClickEvent()
+    this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : this.messages.NO_KEYWORDS
     this.show()
+    this.bindClickEvent()
+    return this
 }
 
 KeywordView.getKeywordsHtml = function(data){
