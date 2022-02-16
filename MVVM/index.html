@@ -14,14 +14,33 @@
     </header>
 
     <div class="container">
-      <!-- submit 이벤트가 발생했을 때 동작하는 함수 바인딩 -->
+      <!-- v-on : submit 이벤트가 발생했을 때 동작하는 함수 바인딩 -->
       <!-- prevent : 화면이 다시 그려지는걸 막음 -->
       <form v-on:submit.prevent="onSubmit">
         <!-- v-model을 사용했기 때문에 뷰로 바인딩 되었음(양방향 바인딩을 지원) -->
         <input type="text" v-model="query" v-on:keyup="onKeyup" placeholder="검색어를 입력하세요" autofocus>
-        <!-- input의 query의 길이가 있으면 show 없으면 hide -->
+        <!-- v-show : input의 query의 길이가 있으면 show 없으면 hide -->
         <button v-show="query.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
       </form>
+<div class="content">
+      <!-- submit 됐을 때만 출력되도록 검색결과 영역 전체를 감싸줌 -->
+      <div v-if="submitted">
+        <!-- v-if : 안의 조건이 참일 경우에만 이 DOM을 출력 -->
+        <div id="search-result" v-if="searchResult.length">
+          <ul>
+            <!-- v-for : 배열 반복을 위해 사용 -->
+            <li v-for="item in searchResult">
+              <!-- v-bind : 어트리뷰트의 값을 바인딩 -->
+              <img v-bind:src="item.image" alt="">
+              <p>{{item.name}}</p>
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          {{query}} 검색어로 찾을 수 없습니다.
+        </div>
+      </div>
+</div>
     </div>
   </div>
 
