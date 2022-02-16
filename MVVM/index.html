@@ -14,7 +14,14 @@
     </header>
 
     <div class="container">
-      {{msg}}
+      <!-- submit 이벤트가 발생했을 때 동작하는 함수 바인딩 -->
+      <!-- prevent : 화면이 다시 그려지는걸 막음 -->
+      <form v-on:submit.prevent="onSubmit">
+        <!-- v-model을 사용했기 때문에 뷰로 바인딩 되었음(양방향 바인딩을 지원) -->
+        <input type="text" v-model="query" v-on:keyup="onKeyup" placeholder="검색어를 입력하세요" autofocus>
+        <!-- input의 query의 길이가 있으면 show 없으면 hide -->
+        <button v-show="query.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
+      </form>
     </div>
   </div>
 
