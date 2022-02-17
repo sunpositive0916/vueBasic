@@ -63,7 +63,20 @@
           </div>
         </div>
         <div v-else>
-          최근검색어 목록
+          <div v-if="history.length">
+            <ul class="list">
+              <li v-for="item in history"
+                  v-on:click="onClickKeyword(item.keyword)">
+                {{item.keyword}}
+                <span class="date">{{item.date}}</span>
+                <!-- .stop : 버블링 방지 -->
+                <button class="btn-remove" v-on:click.stop="onClickRemoveHistory(item.keyword)"></button>
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            최근 검색어가 없습니다.
+          </div>
         </div>
       </div>
 </div>

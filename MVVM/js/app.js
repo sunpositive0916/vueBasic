@@ -1,5 +1,6 @@
 import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
+import HistoryModel from './models/HistoryModel.js'
 
 // Vue Instance 생성
 new Vue({
@@ -16,12 +17,14 @@ new Vue({
     selectedTab: '',
     // 검색결과
     keywords: [],
+    history: [],
     searchResult: [],
   },
   // 뷰 인스턴스가 생성 될 때 실행
   created(){
     this.selectedTab = this.tabs[0]
     this.fetchKeyword()
+    this.fetchHistory()
   },
   // DOM과 바인딩할 함수 정의
   methods:{
@@ -41,9 +44,18 @@ new Vue({
       this.query = keyowrd
       this.search()
     },
+    onClickRemoveHistory(keyword){
+      HistoryModel.remove(keyword)
+      this.fetchHistory()
+    },
     fetchKeyword(){
       KeywordModel.list().then(data => {
         this.keywords = data
+      })
+    },
+    fetchHistory(){
+      HistoryModel.list().then(data => {
+        this.history = data
       })
     },
     search(){
@@ -51,6 +63,8 @@ new Vue({
         this.submitted = true
         this.searchResult = data
       })
+      HistoryModel.add(this.query)
+      this.fetchHistory()
     },
     resetForm(){
       this.query = ''
