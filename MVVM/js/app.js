@@ -10,8 +10,15 @@ new Vue({
     query: '',
     // submit이 일어났는지 안일어났는지 확인(검색어를 칠 때 마다 "'검색어' 검색어로 찾을 수 없습니다." 문구가 뜨기 때문)
     submitted: false,
+    // 탭은 두개니까 배열로
+    tabs: ['추천 검색어', '최근 검색어'],
+    selectedTab: '',
     // 검색결과
     searchResult: [],
+  },
+  // 뷰 인스턴스가 생성 될 때 실행
+  created(){
+    this.selectedTab = this.tabs[0]
   },
   // DOM과 바인딩할 함수 정의
   methods:{
@@ -23,6 +30,9 @@ new Vue({
     },
     onReset(){
       this.resetForm()
+    },
+    onClickTab(tab){
+      this.selectedTab = tab
     },
     search(){
       SearchModel.list().then(data => {

@@ -40,6 +40,21 @@
           {{query}} 검색어로 찾을 수 없습니다.
         </div>
       </div>
+      <div v-else>
+        <ul class="tabs">
+          <!-- {클래스명: 조건} 조건이 맞으면 클래스명 출력 -->
+          <li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}"
+              v-on:click="onClickTab(tab)">
+            {{tab}}
+          </li>
+        </ul>
+        <div v-if="selectedTab === tabs[0]">
+          추천검색어 목록
+        </div>
+        <div v-else>
+          최근검색어 목록
+        </div>
+      </div>
 </div>
     </div>
   </div>
