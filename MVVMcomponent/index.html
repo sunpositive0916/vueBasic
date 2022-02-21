@@ -14,14 +14,9 @@
     </header>
 
     <div class="container">
-      <!-- v-on : submit 이벤트가 발생했을 때 동작하는 함수 바인딩 -->
-      <!-- prevent : 화면이 다시 그려지는걸 막음 -->
-      <form v-on:submit.prevent="onSubmit">
-        <!-- v-model을 사용했기 때문에 뷰로 바인딩 되었음(양방향 바인딩을 지원) -->
-        <input type="text" v-model="query" v-on:keyup="onKeyup" placeholder="검색어를 입력하세요" autofocus>
-        <!-- v-show : input의 query의 길이가 있으면 show 없으면 hide -->
-        <button v-show="query.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
-      </form>
+      <!-- FormComponent 안의 value(query라는 값은 여러 컴포넌트에서 사용하기 때문에 폼의 query를 app으로 넘겨주기 위해) -->
+      <search-form v-bind:value="query" v-on:@submit="onSubmit" v-on:@reset="onReset"></search-form>
+      
 <div class="content">
       <!-- submit 됐을 때만 출력되도록 검색결과 영역 전체를 감싸줌 -->
       <div v-if="submitted">
@@ -87,3 +82,15 @@
   <script type="module" src="./js/app.js"></script>
 </body>
 </html>
+
+<!-- FormComponent.js와 연결됨 -->
+<template id="search-form">
+  <!-- v-on : submit 이벤트가 발생했을 때 동작하는 함수 바인딩 -->
+      <!-- prevent : 화면이 다시 그려지는걸 막음 -->
+      <form v-on:submit.prevent="onSubmit">
+        <!-- v-model을 사용했기 때문에 뷰로 바인딩 되었음(양방향 바인딩을 지원) -->
+        <input type="text" v-model="inputValue" v-on:keyup="onKeyup" placeholder="검색어를 입력하세요" autofocus>
+        <!-- v-show : input의 query의 길이가 있으면 show 없으면 hide -->
+        <button v-show="inputValue.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
+      </form>
+</template>
