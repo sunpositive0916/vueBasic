@@ -1,3 +1,4 @@
+// 모듈 패턴
 export default{
     // 이 컴포넌트가 바인딩 되어야 할 DOM을 선택
     template: '#search-form',

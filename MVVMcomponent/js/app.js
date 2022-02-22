@@ -3,6 +3,7 @@ import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './components/FormComponent.js'
+import ResultComponent from './components/ResultComponent.js'
 
 // Vue Instance 생성
 new Vue({
@@ -25,7 +26,8 @@ new Vue({
   // Vue 인스턴스에서 컴포넌트를 사용하려면 추가해야함
   components: {
     // 키(실제 사용할 디렉티브 명) : 밸류
-    'search-form': FormComponent
+    'search-form': FormComponent,
+    'search-result': ResultComponent,
   },
   // 뷰 인스턴스가 생성 될 때 실행
   created(){
