@@ -31,35 +31,13 @@
           </li>
         </ul>
         <div v-if="selectedTab === tabs[0]">
-          <div v-if="keywords.length">
-            <ul class="list">
-              <li v-for="(item, index) in keywords"
-                  v-on:click="onClickKeyword(item.keyword)">
-                <span class="number">{{index + 1}}</span>
-                {{item.keyword}}
-              </li>
-            </ul>
-          </div>
-          <div v-else>
-            추천 검색어가 없습니다.
-          </div>
+          <list v-bind:data="keywords" type="keywords" v-on:@click="onClickKeyword"></list>
         </div>
+
         <div v-else>
-          <div v-if="history.length">
-            <ul class="list">
-              <li v-for="item in history"
-                  v-on:click="onClickKeyword(item.keyword)">
-                {{item.keyword}}
-                <span class="date">{{item.date}}</span>
-                <!-- .stop : 버블링 방지 -->
-                <button class="btn-remove" v-on:click.stop="onClickRemoveHistory(item.keyword)"></button>
-              </li>
-            </ul>
-          </div>
-          <div v-else>
-            최근 검색어가 없습니다.
-          </div>
+          <list v-bind:data="history" type="history" v-on:@click="onClickKeyword" v-on:@remove="onClickRemoveHistory"></list>
         </div>
+
       </div>
 </div>
     </div>
@@ -81,6 +59,7 @@
         <button v-show="inputValue.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
       </form>
 </template>
+
 <template id="search-result">
   <!-- v-if : 안의 조건이 참일 경우에만 이 DOM을 출력 -->
   <div v-if="data.length">
@@ -95,5 +74,24 @@
   </div>
   <div v-else>
     {{query}} 검색어로 찾을 수 없습니다.
+  </div>
+</template>
+
+<template id="list">
+  <div v-if="data.length">
+    <ul class="list">
+      <li v-for="(item, index) in data"
+          v-on:click="onClickList(item.keyword)">
+        <!-- v-if="type === 'keywords'"를 줄여서 사용(computed) : 코드의 중복과 가독성 개선 -->
+        <span v-if="keywordType" class="number">{{index + 1}}</span>
+        {{item.keyword}}
+        <span v-if="historyType" class="date">{{item.date}}</span>
+        <button v-if="historyType" class="btn-remove" v-on:click.stop="onRemoveList(item.keyword)"></button>
+      </li>
+    </ul>
+  </div>
+  <div v-else>
+    <span v-if="keywordType">추천 검색어가 없습니다.</span>
+    <span v-if="historyType">최근 검색어가 없습니다.</span>
   </div>
 </template>

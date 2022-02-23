@@ -4,6 +4,7 @@ import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './components/FormComponent.js'
 import ResultComponent from './components/ResultComponent.js'
+import ListComponent from './components/ListComponent.js'
 
 // Vue Instance 생성
 new Vue({
@@ -28,6 +29,7 @@ new Vue({
     // 키(실제 사용할 디렉티브 명) : 밸류
     'search-form': FormComponent,
     'search-result': ResultComponent,
+    'list': ListComponent,
   },
   // 뷰 인스턴스가 생성 될 때 실행
   created(){

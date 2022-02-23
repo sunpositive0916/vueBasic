@@ -9,6 +9,12 @@ export default{
             inputValue: this.value,
         }
     },
+    // 어떤 뷰 모델을 감시하고 있다가 변경이 일어나면 행동함
+    watch:{
+        value(newVal, oldVal){
+            this.inputValue = newVal
+        }
+    },
     methods: {
         onSubmit(){
             this.$emit('@submit', this.inputValue.trim())
